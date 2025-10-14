@@ -1,11 +1,10 @@
 import socket
 import requests
 import json
-HOST = '192.168.10.1'
+HOST = '192.168.1.1'
 PORT = 5000
 
 def transaction_requests(data):
-    
     try:
         url = 'http://localhost:8000/api/transactions'
         requests.post(url, data=json.dumps(data))
@@ -33,7 +32,6 @@ def main():
                         time = aux_data[0:2]+':'+aux_data[2:4]+':'+aux_data[4:6]
                         cost = float(int(aux_data[46:54])/100)
                         balance = float(int(aux_data[-8:])/100)
-                        before_balance = float(int(aux_data[38:46])/100)
                         data_formated = {
                             "card_code": code,
                             "card_type": card_type,
@@ -41,7 +39,6 @@ def main():
                             "time": time,
                             "amount": cost,
                             "balance": balance,
-                            "last_balance": before_balance,
                         }
                         transaction_requests(data_formated)
 
